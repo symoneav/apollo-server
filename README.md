@@ -1,2 +1,2 @@
 # apollo-server
-starting exercise now on local machine
+actually starting now
