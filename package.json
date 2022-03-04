@@ -1,0 +1,21 @@
+{
+  "name": "apollo-server",
+  "description": "",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js localhost 4000"
+  },
+  "keywords": [],
+  "dependencies": {
+    "apollo-server": "^3.3.0",
+    "graphql": "^15.5.3",
+    "graphql-tag": "2.12.6",
+    "sequelize": "6.17.0",
+    "sequelize-cli": "6.4.1",
+    "sqlite3": "5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.4"
+  }
+}
