@@ -1,7 +1,10 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { deburr } = require("lodash");
 const models = require('./models')
+const path = require('path')
+const express = require('express')
 
+const app = express()
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
@@ -51,7 +54,6 @@ const server = new ApolloServer({
 });
 
 
-const __dirname = path.resolve();
 // app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(express.static(path.join(__dirname, "/frontend/build")));
 app.get("*", (req, res) =>
