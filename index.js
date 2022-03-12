@@ -1,8 +1,9 @@
 const { ApolloServer, gql } = require("apollo-server");
-const { deburr } = require("lodash");
-const models = require('./models')
 const path = require('path')
 const express = require('express')
+const { deburr } = require("lodash");
+const models = require('./models')
+
 
 const app = express()
 
