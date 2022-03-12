@@ -31,6 +31,18 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 let db = models;
 
+const slugUrl = (url)=>{
+return url
+.toString()
+.trim()
+.toLowerCase()
+.replace(/\s+/g, "-")
+.replace(/[^\w\-]+/g, "")
+.replace(/\-\-+/g, "-")
+.replace(/^-+/, "")
+.replace(/-+$/, "");
+}
+
 const resolvers = {
   Query: {
     async users(root, { email }) {
@@ -53,7 +65,7 @@ const resolvers = {
     async createLink(root, { url,slug }) {
       const newLink = await db.Link.create({
         url,
-        slug,
+        slug: slug ? slug : slugUrl(url),
       });
 
       return newLink;
