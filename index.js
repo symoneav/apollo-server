@@ -1,59 +1,70 @@
 const { ApolloServer, gql } = require("apollo-server");
-const path = require('path')
-const express = require('express')
+const path = require("path");
+const express = require("express");
 const { deburr } = require("lodash");
-const models = require('./models')
+const models = require("./models");
 
-
-const app = express()
+const app = express();
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
-type User {
+  type User {
     firstName: String!
-    lastName:String!
+    lastName: String!
     email: String!
   }
-type Query {
-    users:[User]
+
+  type Link {
+    url: String!
+    slug: String!
   }
-type Mutation {
-    createUser(firstName: String!,lastName: String!,email: String!): User!
+  type Query {
+    users: [User]
+    links: [Link]
+  }
+  type Mutation {
+    createUser(firstName: String!, lastName: String!, email: String!): User!
+    createLink(url: String!, slug: String!): Link!
   }
 `;
 
-const users = [{firstName:"Symone", lastName:"Varnado", email:"symonevarnado@gmai.com"}]
-
 // Provide resolver functions for your schema fields
-let db = models
-console.log(db.User, "checking")
+let db = models;
+
 const resolvers = {
-    
   Query: {
-    async users(root, { email }, models ) {
-        return db.User.findAll();
-      },
+    async users(root, { email }) {
+      return db.User.findAll();
+    },
+    async links(root, {}) {
+      return db.Link.findAll();
+    },
   },
   Mutation: {
-    async createUser(root, {firstName, lastName, email }, models) {
-      const newUser = await  db.User.create({
+    async createUser(root, { firstName, lastName, email }) {
+      const newUser = await db.User.create({
         firstName,
         lastName,
-        email
+        email,
       });
 
-      return newUser
+      return newUser;
     },
-}
+    async createLink(root, { url,slug }) {
+      const newLink = await db.Link.create({
+        url,
+        slug,
+      });
+
+      return newLink;
+    },
+  },
 };
-
-
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
 });
-
 
 // app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(express.static(path.join(__dirname, "/frontend/build")));
