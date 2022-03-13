@@ -15,19 +15,19 @@ const SlugCreate = () => {
     }
   `;
 
-  const [createLink,{ data, loading, error }] = useMutation(CREATE_SLUG);
-  console.log(data)
+  const [createLink, { data, loading, error }] = useMutation(CREATE_SLUG);
+  console.log(data);
 
-  if (loading) return 'Submitting...';
+  if (loading) return "Submitting...";
   if (error) return `Submission error! ${error.message}`;
   return (
     <form
-    onSubmit={e => {
-      e.preventDefault();
-      createLink({ variables: { url: url , slug:slug} });
-      setUrl("")
-      setSlug("")
-    }}>
+      onSubmit={(e) => {
+        e.preventDefault();
+        createLink({ variables: { url: url, slug: slug } });
+        setUrl("");
+        setSlug("");
+      }}>
       <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
       <input
         type="text"
@@ -42,6 +42,7 @@ const SlugCreate = () => {
 
 export default function App() {
   const [links, setLinks] = useState([]);
+  const[loaded,setLoaded] = useState(false)
 
   const GET_USERS = gql`
     query GetUsers {
@@ -63,14 +64,15 @@ export default function App() {
 
   // const client = ...
 
+ 
   const { loading, error, data } = useQuery(GET_LINKS);
-
   useEffect(() => {
     if (data) {
-      console.log(data);
-      // setLinks(data.users);
+      setLoaded(true)
+      setLinks(data.links);
     }
-  }, [data]);
+  }, [data, links]);
+
 
   return (
     <div className="App container">
@@ -93,50 +95,39 @@ export default function App() {
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse " id="navbarNav">
-            <ul class="navbar-nav midsection">
-              <div className="navbar-nav midsection">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    Features
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    Domain
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    Pricing
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    Enterprise
-                  </a>
-                </li>
-              </div>
+            <div className="navbar-nav midsection">
+              <a class="nav-link" href="#">
+                Features
+              </a>
 
-              <div class="navbar-nav nav-right">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    Login
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    Sign Up
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">
-                    <button className="nav-btn" type="button">
-                      Get a quote
-                    </button>
-                  </a>
-                </li>
-              </div>
-            </ul>
+              <a class="nav-link" href="#">
+                Domain
+              </a>
+
+              <a class="nav-link" href="#">
+                Pricing
+              </a>
+
+              <a class="nav-link" href="#">
+                Enterprise
+              </a>
+            </div>
+
+            <div class="navbar-nav nav-right">
+              <a class="nav-link" href="#">
+                Login
+              </a>
+
+              <a class="nav-link" href="#">
+                Sign Up
+              </a>
+
+              <a class="nav-link" href="#">
+                <button className="nav-btn" type="button">
+                  Get a quote
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </nav>
@@ -144,8 +135,8 @@ export default function App() {
       <div>
         <SlugCreate />
         <ul>
-          {/* {links.length > 0 &&
-            links.map((link) => <li key={link.firstName}>{link.firstName}</li>)} */}
+          {loaded && links.length > 0 &&
+            links.map((link,idx) => <li key={idx}>{link.url}</li>)}
         </ul>
       </div>
       <h2>Start editing to see some magic happen!</h2>

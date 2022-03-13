@@ -5,3 +5,67 @@
 #navbarNav{
     justify-content: space-between;
 }
+
+.navbar{
+    display: flex;
+    width:100%;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    flex-direction: row;
+}
+
+.navbar-brand{
+height: 32px;
+}
+
+.navbar-brand img{
+    max-width: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.midsection{
+    display: flex;
+    margin-right: 20%;
+}
+
+.midsection a{
+    display: flex;
+    letter-spacing: normal !important;
+}
+
+
+.nav-link{
+    margin-right: 8px;
+    padding: 20px 15px;
+    color:#595d66;
+    font-weight: 400;
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+    position: relative;
+    float: right;
+}
+
+.nav-right div{
+    display: flex;
+    width: auto;
+    justify-content: flex-end;
+}
+
+.nav-right a{
+    margin-left: 8px;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.nav-right a button{
+    margin-left: 8px !important;
+    background-color: transparent;
+    border:1px solid  #2281c2;
+    border-radius: 8px;
+    padding: 5px;
+    color:#2281c2;
+}
