@@ -31,16 +31,17 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 let db = models;
 
-const slugUrl = (url)=>{
-return url
-.toString()
-.trim()
-.toLowerCase()
-.replace(/\s+/g, "-")
-.replace(/[^\w\-]+/g, "")
-.replace(/\-\-+/g, "-")
-.replace(/^-+/, "")
-.replace(/-+$/, "");
+const slugUrl = (length)=>{
+  const allCapsAlpha = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"]; 
+  const allLowerAlpha = [..."abcdefghijklmnopqrstuvwxyz"]; 
+  const allUniqueChars = [..."~!@#$%^&*()_+-=[]\{}|;:',./<>?"];
+  const allNumbers = [..."0123456789"];
+  
+  const base = [...allCapsAlpha, ...allNumbers, ...allLowerAlpha, ...allUniqueChars];
+  return [...Array(length)]
+  .map(i => base[Math.random()*base.length|0])
+  .join('')
+
 }
 
 const resolvers = {
@@ -65,7 +66,7 @@ const resolvers = {
     async createLink(root, { url,slug }) {
       const newLink = await db.Link.create({
         url,
-        slug: slug ? slug : slugUrl(url),
+        slug: slug ? slug : slugUrl(6),
       });
 
       return newLink;

@@ -136,7 +136,7 @@ export default function App() {
         <SlugCreate />
         <ul>
           {loaded && links.length > 0 &&
-            links.map((link,idx) => <li key={idx}>{link.url}</li>)}
+            links.map((link,idx) => <li className="return-item"key={idx}>{link.url} {link.slug}</li>)}
         </ul>
       </div>
       <h2>Start editing to see some magic happen!</h2>
