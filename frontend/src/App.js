@@ -159,8 +159,8 @@ export default function App() {
         </div>
       </nav>
       <div className="container-fluid">
-        <div className="container hero" style={{diaplsy:"flex", flexDirection:"row"}}>
-          <div className="banner-content-block ">
+        <div className="container hero" style={{display:"flex", flexDirection:"row"}}>
+          <div className="banner-content-block "   style={{margin:10}}>
             <div className="banner-text-block">
               <div>
                 <h1>
@@ -227,6 +227,7 @@ export default function App() {
               src="https://hdwy.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F56993b52-55ed-45c4-8db7-d1c6a3f62cbc%2Fperson.png?table=block&id=6c79c066-cbf7-4d1f-9cb5-fa31a2152d08&spaceId=425f0f1f-eb89-41cf-b925-85e46de334af&width=730&userId=&cache=v2"
               slt="hero"
               className="hero-cta"
+              style={{margin:10}}
             />
           </div>
         </div>
