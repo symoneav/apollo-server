@@ -24,25 +24,47 @@ const SlugCreate = () => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        createLink({ variables: { url: url, slug: slug } });
-        setUrl("");
-        setSlug("");
+        if (url.length < 4) {
+          alert("slug must be at least 4 characters");
+        } else {
+          createLink({ variables: { url: url, slug: slug } });
+          setUrl("");
+          setSlug("");
+        }
       }}>
-      <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
-      <input
-        type="text"
-        value={slug}
-        onChange={(e) => setSlug(e.target.value)}
-      />
-      <label>slug must be at least 4 characters</label>
-      <button type="submit">Shorten Link</button>
+      <div className="form-section">
+        <div style={{display:"flex", flexDirection: "column" }}>
+          <label>Url</label>
+          <input
+            className="input-field"
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+          />
+        </div>
+        <div style={{display:"flex", flexDirection: "column" }}>
+          <label>Slug</label>
+          <input
+            className="input-field"
+            type="text"
+            value={slug}
+            onChange={(e) => setSlug(e.target.value)}
+          />
+        </div>
+      
+          <button className="url-btn" style={{height:"3rem", width:"auto", display:"flex", alignItems:"center"}} type="submit">
+            Submit
+          </button>
+       
+      </div>
+      <small>*slug must be at least 4 characters</small>
     </form>
   );
 };
 
 export default function App() {
   const [links, setLinks] = useState([]);
-  const[loaded,setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false);
 
   const GET_USERS = gql`
     query GetUsers {
@@ -64,15 +86,13 @@ export default function App() {
 
   // const client = ...
 
- 
   const { loading, error, data } = useQuery(GET_LINKS);
   useEffect(() => {
     if (data) {
-      setLoaded(true)
+      setLoaded(true);
       setLinks(data.links);
     }
   }, [data, links]);
-
 
   return (
     <div className="App container">
@@ -131,15 +151,34 @@ export default function App() {
           </div>
         </div>
       </nav>
-      <h1>Hello CodeSandbox</h1>
-      <div>
-        <SlugCreate />
-        <ul>
-          {loaded && links.length > 0 &&
-            links.map((link,idx) => <li className="return-item"key={idx}>{link.url} {link.slug}</li>)}
-        </ul>
+      <div className="container-fluid">
+        <img src="https://hdwy.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F56993b52-55ed-45c4-8db7-d1c6a3f62cbc%2Fperson.png?table=block&id=6c79c066-cbf7-4d1f-9cb5-fa31a2152d08&spaceId=425f0f1f-eb89-41cf-b925-85e46de334af&width=730&userId=&cache=v2" slt="hero"/></div>
+  
+      <div
+        style={{
+          backgroundColor: "#263849",
+          paddingTop: "40px",
+          paddingBottom: "10px",
+        }}>
+        <div className="container hero">
+          <div className="div_form_horizontal_form">
+            <div className="rebrand-link-block">
+              <div className="w-form">
+                <SlugCreate />
+                <div className="shortened-links-list">
+                  {loaded &&
+                    links.length > 0 &&
+                    links.map((link, idx) => (
+                      <div className="shortened-links-list-item" key={idx}>
+                        <div className="origin-link">{link.url}</div> <div className="short-link"><a href={link.url}>{link.slug}</a></div> <div className="copy-link" onClick={() => {navigator.clipboard.writeText(link.url)}}>Copy</div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h2>Start editing to see some magic happen!</h2>
     </div>
   );
 }
