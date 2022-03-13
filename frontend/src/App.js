@@ -33,8 +33,8 @@ const SlugCreate = () => {
         }
       }}>
       <div className="form-section">
-        <div style={{display:"flex", flexDirection: "column" }}>
-          <label>Url</label>
+        <div style={{ display: "flex", flexDirection: "column",}}>
+          <label  style={{color:"white"}}>Url</label>
           <input
             className="input-field"
             type="text"
@@ -42,8 +42,8 @@ const SlugCreate = () => {
             onChange={(e) => setUrl(e.target.value)}
           />
         </div>
-        <div style={{display:"flex", flexDirection: "column" }}>
-          <label>Slug</label>
+        <div style={{ display: "flex", flexDirection: "column", }}>
+          <label style={{color:"white"}}>Slug</label>
           <input
             className="input-field"
             type="text"
@@ -51,13 +51,20 @@ const SlugCreate = () => {
             onChange={(e) => setSlug(e.target.value)}
           />
         </div>
-      
-          <button className="url-btn" style={{height:"3rem", width:"auto", display:"flex", alignItems:"center"}} type="submit">
-            Submit
-          </button>
-       
+
+        <button
+          className="url-btn"
+          style={{
+            height: "3rem",
+            width: "auto",
+            display: "flex",
+            alignItems: "center",
+          }}
+          type="submit">
+          Submit
+        </button>
       </div>
-      <small>*slug must be at least 4 characters</small>
+      <small  style={{color:"white"}}>*slug must be at least 4 characters</small>
     </form>
   );
 };
@@ -95,7 +102,7 @@ export default function App() {
   }, [data, links]);
 
   return (
-    <div className="App container">
+    <div className="App container-fluid" style={{maxWidth:"100%"}}>
       <nav class="navbar navbar-expand-lg  ">
         <div class="container-fluid" style={{ color: "black" }}>
           <a class="navbar-brand" href="#">
@@ -152,9 +159,80 @@ export default function App() {
         </div>
       </nav>
       <div className="container-fluid">
-        <img src="https://hdwy.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F56993b52-55ed-45c4-8db7-d1c6a3f62cbc%2Fperson.png?table=block&id=6c79c066-cbf7-4d1f-9cb5-fa31a2152d08&spaceId=425f0f1f-eb89-41cf-b925-85e46de334af&width=730&userId=&cache=v2" slt="hero"/></div>
-  
+        <div className="container hero" style={{diaplsy:"flex", flexDirection:"row"}}>
+          <div className="banner-content-block ">
+            <div className="banner-text-block">
+              <div>
+                <h1>
+                  Your Brand on <br />
+                  Your Links
+                  <span class="trademark-text-2 home">®</span>
+                </h1>
+              </div>
+              {/* <div class="trademark-copy home w-hidden-tiny">
+                <div class="text-block-v-5 w-hidden-small main-copy-main-main">
+                  Your Brand on Your Links{" "}
+                  <span class="trademark-text-2 small w-hidden-main">®</span>
+                </div>
+                <div class="text-block-v-5 w-hidden-small main-copy-main-medium">
+                  Your Brand
+                  <br />
+                  on Your Links{" "}
+                  <span class="trademark-text-2 trademark-text-2-medium small">
+                    ®
+                  </span>
+                </div>
+                <div class="text-block-v-5 w-hidden-main w-hidden-small">
+                  Your Brand
+                  <br />
+                  on Your Links{" "}
+                  <span class="trademark-text-2 trademark-text-2-small small w-hidden-main">
+                    ®
+                  </span>
+                </div>
+                <div class="text-block-v-5 w-hidden-main w-hidden-medium">
+                  Your Brand
+                  <br />
+                  on Your Links{" "}
+                  <span class="trademark-text-2 trademark-text-2-small-small small w-hidden-main">
+                    ®
+                  </span>
+                </div>
+                <div class="trademark-text-2 w-hidden-main-copy-main-medium home w-hidden-medium w-hidden-small w-hidden-tiny">
+                  ®
+                </div>
+              </div> */}
+              <p className="p-lg-2 text-dark_hero ">
+                Rebrandly is the industry-leading link management platform to
+                brand, track and share short URLs using a custom domain name
+              </p>
+            </div>
+            <div style={{display:"flex", flexDirection:"row"}}>
+              <button
+              style={{margin:"1rem", borderRadius:5}}
+                type="button"
+                class="Button Button--primary Button--lg Button--block">
+                Sign up free
+              </button>
+              <button
+               style={{margin:"1rem", border:"1px solid transparent ", borderRadius:5}}
+                type="button"
+                class="Button w-hidden-medium w-hidden-small w-hidden-tiny Button--secondary Button--lg Button--block">
+                Request a demo
+              </button>
+            </div>
+          </div>
+          <div className="hero-container">
+            <img
+              src="https://hdwy.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F56993b52-55ed-45c4-8db7-d1c6a3f62cbc%2Fperson.png?table=block&id=6c79c066-cbf7-4d1f-9cb5-fa31a2152d08&spaceId=425f0f1f-eb89-41cf-b925-85e46de334af&width=730&userId=&cache=v2"
+              slt="hero"
+              className="hero-cta"
+            />
+          </div>
+        </div>
+      </div>
       <div
+        className="container-fluid"
         style={{
           backgroundColor: "#263849",
           paddingTop: "40px",
@@ -170,7 +248,17 @@ export default function App() {
                     links.length > 0 &&
                     links.map((link, idx) => (
                       <div className="shortened-links-list-item" key={idx}>
-                        <div className="origin-link">{link.url}</div> <div className="short-link"><a href={link.url}>{link.slug}</a></div> <div className="copy-link" onClick={() => {navigator.clipboard.writeText(link.url)}}>Copy</div>
+                        <div className="origin-link">{link.url}</div>{" "}
+                        <div className="short-link">
+                          <a href={link.url}>{link.slug}</a>
+                        </div>{" "}
+                        <div
+                          className="copy-link"
+                          onClick={() => {
+                            navigator.clipboard.writeText(link.url);
+                          }}>
+                          Copy
+                        </div>
                       </div>
                     ))}
                 </div>
