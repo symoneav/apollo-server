@@ -13,7 +13,10 @@ module.exports = {
       },
       slug: {
         type: Sequelize.STRING ,
-        
+        unique: {
+          args: true,
+          msg: 'Slug address already in use!'
+      }
       },
       createdAt: {
         allowNull: false,
@@ -23,12 +26,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }, {
-    uniqueKeys: {
-        Items_unique: {
-            fields: ['slug']
-        }
-    }});
+    }, {});
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Links');

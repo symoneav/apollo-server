@@ -31,18 +31,20 @@ const typeDefs = gql`
 // Provide resolver functions for your schema fields
 let db = models;
 
-const slugUrl = (length)=>{
+const slugUrl = (url,length)=>{
   const allCapsAlpha = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"]; 
   const allLowerAlpha = [..."abcdefghijklmnopqrstuvwxyz"]; 
   const allUniqueChars = [..."~!@#$%^&*()_+-=[]\{}|;:',./<>?"];
   const allNumbers = [..."0123456789"];
   
   const base = [...allCapsAlpha, ...allNumbers, ...allLowerAlpha, ...allUniqueChars];
-  return [...Array(length)]
+  return (`www.shortenedUrl.com/${[...Array(length)]
   .map(i => base[Math.random()*base.length|0])
-  .join('')
+  .join('')}`)
 
 }
+
+
 
 const resolvers = {
   Query: {
@@ -66,7 +68,7 @@ const resolvers = {
     async createLink(root, { url,slug }) {
       const newLink = await db.Link.create({
         url,
-        slug: slug ? slug : slugUrl(6),
+        slug: slug ? slug : slugUrl(url,4),
       });
 
       return newLink;
